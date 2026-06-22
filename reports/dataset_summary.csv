@@ -1,0 +1,17 @@
+Dataset,Rows,Columns,Missing Values,Duplicate Rows
+01_fund_master.csv,40,15,0,0
+02_nav_history.csv,46000,3,0,0
+03_aum_by_fund_house.csv,90,5,0,0
+04_monthly_sip_inflows.csv,48,6,12,0
+05_category_inflows.csv,144,3,0,0
+06_industry_folio_count.csv,21,6,0,0
+07_scheme_performance.csv,40,19,0,0
+08_investor_transactions.csv,32778,13,0,0
+09_portfolio_holdings.csv,322,8,0,0
+10_benchmark_indices.csv,8050,3,0,0
+axis_bluechip_nav.csv,3579,2,0,0
+hdfc_top_100_direct_nav.csv,3105,2,0,0
+icici_bluechip_nav.csv,3321,2,0,0
+kotak_bluechip_nav.csv,3315,2,0,0
+nippon_large_cap_nav.csv,3312,2,0,0
+sbi_bluechip_nav.csv,3250,2,0,0

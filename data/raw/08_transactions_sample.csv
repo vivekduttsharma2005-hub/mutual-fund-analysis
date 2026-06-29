@@ -1,0 +1,11 @@
+investor_id,folio_number,amc_name,txn_date,txn_type,txn_amount,state,city_tier,investor_age,investor_gender,channel
+INV100001,FOLIO200001,SBI,2024-01-15,SIP,5000,Maharashtra,Tier 1,28,Male,App
+INV100002,FOLIO200002,HDFC,2024-01-16,BUY,50000,Karnataka,Tier 1,35,Female,Online
+INV100003,FOLIO200003,ICICI,2024-01-17,SIP,2000,Tamil Nadu,Tier 1,24,Male,App
+INV100004,FOLIO200004,SBI,2024-01-18,BUY,100000,Delhi,Tier 1,42,Male,Distributor
+INV100005,FOLIO200005,Mirae,2024-01-19,SIP,10000,Gujarat,Tier 1,31,Female,Online
+INV100006,FOLIO200006,Axis,2024-01-20,SIP,3000,Jaipur,Tier 2,26,Male,App
+INV100007,FOLIO200007,Nippon,2024-01-21,BUY,25000,Pune,Tier 2,38,Female,Distributor
+INV100008,FOLIO200008,Kotak,2024-01-22,SIP,5000,Hyderabad,Tier 1,29,Male,App
+INV100009,FOLIO200009,ABSL,2024-01-23,REDEEM,30000,Chennai,Tier 1,45,Male,Online
+INV100010,FOLIO200010,UTI,2024-01-24,SIP,1000,Lucknow,Tier 2,22,Female,App

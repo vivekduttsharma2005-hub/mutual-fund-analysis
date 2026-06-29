@@ -1,79 +1,112 @@
--- ======================================================
--- Bluestock Mutual Fund Star Schema
--- ======================================================
+-- ============================================================
+-- MF Analytics Platform — Star Schema
+-- Bluestock Fintech Capstone
+-- ============================================================
 
-DROP TABLE IF EXISTS dim_fund;
-DROP TABLE IF EXISTS dim_date;
-DROP TABLE IF EXISTS fact_nav;
-DROP TABLE IF EXISTS fact_transactions;
-DROP TABLE IF EXISTS fact_performance;
-DROP TABLE IF EXISTS fact_aum;
-
-----------------------------------------------------------
--- Dimension Tables
-----------------------------------------------------------
-
-CREATE TABLE dim_fund (
-    amfi_code INTEGER PRIMARY KEY,
-    fund_house TEXT,
-    scheme_name TEXT,
-    category TEXT,
-    sub_category TEXT,
-    plan TEXT,
-    benchmark TEXT,
-    fund_manager TEXT,
-    risk_category TEXT,
-    expense_ratio_pct REAL
+-- ============================================================
+-- DIMENSION TABLE: dim_fund
+-- Master fund registry across 10 AMCs and 40 schemes
+-- ============================================================
+CREATE TABLE IF NOT EXISTS dim_fund (
+    fund_id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    scheme_code     VARCHAR(20)  NOT NULL UNIQUE,
+    scheme_name     VARCHAR(255) NOT NULL,
+    amc_name        VARCHAR(100) NOT NULL,
+    category        VARCHAR(50)  NOT NULL,   -- Equity / Debt / Hybrid / Solution
+    sub_category    VARCHAR(100),            -- Large Cap / Mid Cap / ELSS etc.
+    fund_type       VARCHAR(20)  NOT NULL,   -- Open-ended / Close-ended
+    launch_date     DATE,
+    benchmark_index VARCHAR(100),            -- Nifty 50 / Nifty 100 / BSE SmallCap
+    fund_manager    VARCHAR(100),
+    expense_ratio   DECIMAL(5,2),
+    min_investment  DECIMAL(12,2),
+    is_active       BOOLEAN DEFAULT TRUE,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE dim_date (
-    date_key INTEGER PRIMARY KEY,
-    full_date DATE,
-    year INTEGER,
-    quarter INTEGER,
-    month INTEGER,
-    month_name TEXT,
-    day INTEGER
+-- ============================================================
+-- FACT TABLE: fact_nav
+-- Daily Net Asset Value history for each scheme
+-- ============================================================
+CREATE TABLE IF NOT EXISTS fact_nav (
+    nav_id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    fund_id         INTEGER NOT NULL REFERENCES dim_fund(fund_id),
+    nav_date        DATE    NOT NULL,
+    nav_value       DECIMAL(15,4) NOT NULL,
+    day_change      DECIMAL(10,4),           -- Absolute change from previous day
+    day_change_pct  DECIMAL(8,4),            -- % change from previous day
+    week_high       DECIMAL(15,4),
+    week_low        DECIMAL(15,4),
+    month_high      DECIMAL(15,4),
+    month_low       DECIMAL(15,4),
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(fund_id, nav_date)
 );
 
-----------------------------------------------------------
--- Fact Tables
-----------------------------------------------------------
-
-CREATE TABLE fact_nav (
-    nav_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    amfi_code INTEGER,
-    nav_date DATE,
-    nav REAL,
-    FOREIGN KEY(amfi_code) REFERENCES dim_fund(amfi_code)
+-- ============================================================
+-- FACT TABLE: fact_aum
+-- Monthly Assets Under Management by fund house
+-- ============================================================
+CREATE TABLE IF NOT EXISTS fact_aum (
+    aum_id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    fund_id         INTEGER NOT NULL REFERENCES dim_fund(fund_id),
+    amc_name        VARCHAR(100) NOT NULL,
+    report_month    DATE    NOT NULL,        -- First day of the month
+    aum_crore       DECIMAL(15,2) NOT NULL, -- AUM in ₹ Crore
+    aum_change_pct  DECIMAL(8,2),           -- MoM % change
+    folio_count     INTEGER,                -- Number of folios
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(fund_id, report_month)
 );
 
-CREATE TABLE fact_transactions (
-    transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    investor_id TEXT,
-    amfi_code INTEGER,
-    transaction_date DATE,
-    transaction_type TEXT,
-    amount_inr REAL,
-    state TEXT,
-    city TEXT,
-    payment_mode TEXT,
-    kyc_status TEXT,
-    FOREIGN KEY(amfi_code) REFERENCES dim_fund(amfi_code)
+-- ============================================================
+-- FACT TABLE: fact_sip
+-- Monthly SIP inflow data
+-- ============================================================
+CREATE TABLE IF NOT EXISTS fact_sip (
+    sip_id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    fund_id         INTEGER NOT NULL REFERENCES dim_fund(fund_id),
+    report_month    DATE    NOT NULL,
+    sip_amount_crore  DECIMAL(15,2) NOT NULL,  -- SIP inflow in ₹ Crore
+    sip_count         INTEGER,                  -- Number of SIP registrations
+    new_sip_count     INTEGER,                  -- New SIPs registered this month
+    stopped_sip_count INTEGER,                  -- SIPs stopped this month
+    avg_sip_amount    DECIMAL(10,2),            -- Average SIP ticket size
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(fund_id, report_month)
 );
 
-CREATE TABLE fact_performance (
-    performance_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    amfi_code INTEGER,
-    return_1yr_pct REAL,
-    return_3yr_pct REAL,
-    return_5yr_pct REAL,
-    FOREIGN KEY(amfi_code) REFERENCES dim_fund(amfi_code)
+-- ============================================================
+-- FACT TABLE: fact_transactions
+-- Investor transaction ledger (buy / sell / switch / redeem)
+-- ============================================================
+CREATE TABLE IF NOT EXISTS fact_transactions (
+    txn_id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    fund_id         INTEGER NOT NULL REFERENCES dim_fund(fund_id),
+    investor_id     VARCHAR(20) NOT NULL,
+    folio_number    VARCHAR(30) NOT NULL,
+    txn_date        DATE    NOT NULL,
+    txn_type        VARCHAR(20) NOT NULL,     -- BUY / REDEEM / SWITCH_IN / SWITCH_OUT / SIP
+    txn_amount      DECIMAL(15,2) NOT NULL,   -- Transaction amount in ₹
+    nav_at_txn      DECIMAL(15,4) NOT NULL,   -- NAV on transaction date
+    units           DECIMAL(15,4) NOT NULL,   -- Units purchased/redeemed
+    state           VARCHAR(50),              -- Investor state
+    city_tier       VARCHAR(10),              -- Tier 1 / Tier 2 / Tier 3
+    investor_age    INTEGER,
+    investor_gender VARCHAR(10),
+    channel         VARCHAR(30),              -- Online / Offline / App / Distributor
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE fact_aum (
-    aum_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    fund_house TEXT,
-    report_month TEXT,
-    aum_cr REAL
-);
+-- ============================================================
+-- INDEXES for query performance
+-- ============================================================
+CREATE INDEX IF NOT EXISTS idx_nav_fund_date   ON fact_nav(fund_id, nav_date);
+CREATE INDEX IF NOT EXISTS idx_nav_date        ON fact_nav(nav_date);
+CREATE INDEX IF NOT EXISTS idx_aum_month       ON fact_aum(report_month);
+CREATE INDEX IF NOT EXISTS idx_sip_month       ON fact_sip(report_month);
+CREATE INDEX IF NOT EXISTS idx_txn_date        ON fact_transactions(txn_date);
+CREATE INDEX IF NOT EXISTS idx_txn_fund        ON fact_transactions(fund_id);
+CREATE INDEX IF NOT EXISTS idx_txn_investor    ON fact_transactions(investor_id);
+CREATE INDEX IF NOT EXISTS idx_fund_category   ON dim_fund(category, sub_category);
+CREATE INDEX IF NOT EXISTS idx_fund_amc        ON dim_fund(amc_name);

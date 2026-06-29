@@ -152,4 +152,4 @@ AMFI India CSVs    ──┤──▶  ETL Pipeline  ──▶  SQLite / Postgre
 
 ---
 
-*Capstone project for Bluestock Fintech · June 2025*
+*Capstone project for Bluestock Fintech · June 2026*

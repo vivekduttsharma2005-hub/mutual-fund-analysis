@@ -1,0 +1,41 @@
+scheme_code,scheme_name,amc_name,category,sub_category,fund_type,benchmark_index,expense_ratio,min_investment
+120503,SBI Bluechip Fund,SBI,Equity,Large Cap,Open-ended,Nifty 100,0.98,500
+125494,SBI Small Cap Fund,SBI,Equity,Small Cap,Open-ended,BSE SmallCap,1.53,500
+119598,SBI Magnum Midcap Fund,SBI,Equity,Mid Cap,Open-ended,Nifty Midcap 150,1.21,500
+119551,SBI Equity Hybrid Fund,SBI,Hybrid,Aggressive Hybrid,Open-ended,Nifty 50 Hybrid,1.15,500
+100033,HDFC Top 100 Fund,HDFC,Equity,Large Cap,Open-ended,Nifty 100,1.03,500
+100270,HDFC Mid-Cap Opportunities Fund,HDFC,Equity,Mid Cap,Open-ended,Nifty Midcap 150,1.28,500
+100016,HDFC Small Cap Fund,HDFC,Equity,Small Cap,Open-ended,BSE SmallCap,1.58,500
+101206,HDFC Balanced Advantage Fund,HDFC,Hybrid,Balanced Advantage,Open-ended,Nifty 50 Hybrid,0.88,500
+120586,ICICI Pru Bluechip Fund,ICICI,Equity,Large Cap,Open-ended,Nifty 100,0.95,500
+120839,ICICI Pru Midcap Fund,ICICI,Equity,Mid Cap,Open-ended,Nifty Midcap 150,1.19,500
+120843,ICICI Pru Value Discovery Fund,ICICI,Equity,Value,Open-ended,Nifty 500,1.05,500
+120594,ICICI Pru Equity & Debt Fund,ICICI,Hybrid,Aggressive Hybrid,Open-ended,Nifty 50 Hybrid,1.12,500
+118701,Nippon India Large Cap Fund,Nippon,Equity,Large Cap,Open-ended,Nifty 100,1.08,500
+118825,Nippon India Growth Fund,Nippon,Equity,Mid Cap,Open-ended,Nifty Midcap 150,1.35,500
+118989,Nippon India Small Cap Fund,Nippon,Equity,Small Cap,Open-ended,BSE SmallCap,1.55,500
+118550,Nippon India Balanced Advantage Fund,Nippon,Hybrid,Balanced Advantage,Open-ended,Nifty 50 Hybrid,0.92,500
+120163,Kotak Bluechip Fund,Kotak,Equity,Large Cap,Open-ended,Nifty 100,1.01,500
+120164,Kotak Emerging Equity Fund,Kotak,Equity,Mid Cap,Open-ended,Nifty Midcap 150,1.31,500
+120165,Kotak Small Cap Fund,Kotak,Equity,Small Cap,Open-ended,BSE SmallCap,1.62,500
+120170,Kotak Balanced Advantage Fund,Kotak,Hybrid,Balanced Advantage,Open-ended,Nifty 50 Hybrid,0.85,500
+125503,Axis Bluechip Fund,Axis,Equity,Large Cap,Open-ended,Nifty 100,0.55,500
+125354,Axis Midcap Fund,Axis,Equity,Mid Cap,Open-ended,Nifty Midcap 150,0.62,500
+125356,Axis Small Cap Fund,Axis,Equity,Small Cap,Open-ended,BSE SmallCap,0.72,500
+125355,Axis Long Term Equity Fund,Axis,Equity,ELSS,Open-ended,Nifty 500,0.68,500
+119270,ABSL Frontline Equity Fund,ABSL,Equity,Large Cap,Open-ended,Nifty 100,0.98,500
+119271,ABSL Midcap Fund,ABSL,Equity,Mid Cap,Open-ended,Nifty Midcap 150,1.25,500
+119272,ABSL Small Cap Fund,ABSL,Equity,Small Cap,Open-ended,BSE SmallCap,1.49,500
+119536,ABSL Balanced Advantage Fund,ABSL,Hybrid,Balanced Advantage,Open-ended,Nifty 50 Hybrid,0.80,500
+120716,UTI Nifty 50 Index Fund,UTI,Equity,Index,Open-ended,Nifty 50,0.18,500
+120717,UTI Mid Cap Fund,UTI,Equity,Mid Cap,Open-ended,Nifty Midcap 150,1.38,500
+120718,UTI Small Cap Fund,UTI,Equity,Small Cap,Open-ended,BSE SmallCap,1.51,500
+120719,UTI Flexi Cap Fund,UTI,Equity,Flexi Cap,Open-ended,Nifty 500,1.05,500
+118980,Mirae Asset Large Cap Fund,Mirae,Equity,Large Cap,Open-ended,Nifty 100,0.54,500
+118981,Mirae Asset Emerging Bluechip Fund,Mirae,Equity,Large & Mid Cap,Open-ended,Nifty LargeMidcap 250,0.58,500
+118982,Mirae Asset Midcap Fund,Mirae,Equity,Mid Cap,Open-ended,Nifty Midcap 150,0.65,500
+119260,Mirae Asset Tax Saver Fund,Mirae,Equity,ELSS,Open-ended,Nifty 500,0.52,500
+119230,DSP Top 100 Equity Fund,DSP,Equity,Large Cap,Open-ended,Nifty 100,1.12,500
+119231,DSP Midcap Fund,DSP,Equity,Mid Cap,Open-ended,Nifty Midcap 150,1.29,500
+119232,DSP Small Cap Fund,DSP,Equity,Small Cap,Open-ended,BSE SmallCap,1.52,500
+119233,DSP Equity & Bond Fund,DSP,Hybrid,Aggressive Hybrid,Open-ended,Nifty 50 Hybrid,1.08,500

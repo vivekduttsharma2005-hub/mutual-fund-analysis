@@ -1,155 +1,357 @@
-# MF Analytics Platform — Bluestock Fintech Capstone
+# 📈 Mutual Fund Analytics Platform
 
-A full-stack Mutual Fund Analytics Platform built with publicly available Indian mutual fund data from AMFI India and mfapi.in.
+### Bluestock Fintech Capstone Project
 
-## Project Stats
-- **10 AMCs**: SBI, HDFC, ICICI, Nippon, Kotak, Axis, ABSL, UTI, Mirae, DSP
-- **40 Schemes** across equity, debt, and hybrid categories
-- **46k+ Daily NAV** records
-- **32k Transactions** simulated
-- **₹31,002 Cr SIP Inflow** (Dec 2025)
-- **5k Investors** across 12 states
+A comprehensive **Mutual Fund Analytics Platform** built using Python, SQL, and Power BI to analyze Indian mutual fund performance, investor behavior, risk metrics, and market trends.
+
+The project combines an end-to-end **ETL pipeline**, **Exploratory Data Analysis (EDA)**, **financial risk analytics**, and an **interactive Power BI dashboard** using publicly available data from **AMFI India** and **mfapi.in** along with realistic simulated investor and transaction data.
 
 ---
 
-## Project Structure
+# 🚀 Project Highlights
 
+* 📊 Interactive Power BI Dashboard (4 Pages)
+* 🐍 Automated Python ETL Pipeline
+* 🗄️ Star Schema Database Design
+* 📉 Risk & Performance Analytics
+* 📈 15+ Exploratory Data Analysis Visualizations
+* 💼 Industry-Style Capstone Project
+* 📄 Professional PDF Report
+* 📸 Dashboard Screenshots
+
+---
+
+# 📌 Project Statistics
+
+| Metric                     |       Value |
+| -------------------------- | ----------: |
+| Asset Management Companies |          10 |
+| Mutual Fund Schemes        |          40 |
+| Daily NAV Records          |     46,000+ |
+| Investor Transactions      |     32,000+ |
+| Investors                  |       5,000 |
+| States Covered             |          12 |
+| Monthly SIP Inflow         |  ₹31,002 Cr |
+| Total Industry AUM         | ₹81 Lakh Cr |
+
+---
+
+# 🏗️ Project Architecture
+
+```text
+                  +----------------------+
+                  |   AMFI India Data    |
+                  +----------+-----------+
+                             |
+                             |
+                  +----------v-----------+
+                  |     mfapi.in API     |
+                  +----------+-----------+
+                             |
+                             |
+                    Python ETL Pipeline
+      (Extract → Transform → Clean → Feature Engineering)
+                             |
+                             |
+                  SQLite / PostgreSQL Database
+                             |
+               +-------------+-------------+
+               |                           |
+       Exploratory Data Analysis     Risk Analytics
+               |                           |
+               +-------------+-------------+
+                             |
+                       Power BI Dashboard
+                             |
+                     PDF Report & Insights
 ```
+
+---
+
+# 📂 Project Structure
+
+```text
 mf-analytics/
+│
 ├── data/
-│   ├── raw/                    # Raw CSVs (01–10 datasets)
-│   └── processed/              # Cleaned & enriched data
+│   ├── raw/
+│   └── processed/
+│
 ├── etl/
-│   ├── etl_pipeline.py         # Main ETL pipeline (Extract → Transform → Load)
-│   ├── ingest.py               # Data ingestion from mfapi.in & AMFI
-│   └── transform.py            # Cleaning, imputation, derived metrics
+│   ├── etl_pipeline.py
+│   ├── ingest.py
+│   └── transform.py
+│
 ├── sql/
-│   ├── schema.sql              # Star schema DDL (5 tables)
-│   └── queries.sql             # Analytical SQL queries
+│   ├── schema.sql
+│   └── queries.sql
+│
 ├── analysis/
-│   ├── 01_eda_notebook.ipynb   # Exploratory Data Analysis (15+ charts)
-│   └── 02_performance_metrics.ipynb  # Risk & performance metrics
+│   ├── 01_eda_notebook.ipynb
+│   └── 02_performance_metrics.ipynb
+│
 ├── metrics/
-│   ├── risk_metrics.py         # Sharpe, Sortino, VaR, Drawdown, Beta
-│   ├── fund_sharpe_ranks.csv   # Output: Sharpe ratio rankings
-│   └── var_drawdown_summary.csv # Output: VaR & max drawdown
+│   ├── risk_metrics.py
+│   ├── fund_sharpe_ranks.csv
+│   └── var_drawdown_summary.csv
+│
 ├── dashboard/
-│   ├── dashboard_data.py       # Prepares data for BI dashboard
-│   └── README_dashboard.md     # Power BI / Tableau setup guide
+│   ├── dashboard_data.py
+│   ├── Bluestock_MF_Dashboard.pbix
+│   └── README_dashboard.md
+│
 ├── docs/
-│   ├── report.md               # Full PDF report (markdown source)
-│   └── presentation_outline.md # 12-slide deck outline
-└── requirements.txt
+│   ├── Bluestock_MF_Dashboard.pdf
+│   ├── report.md
+│   └── presentation_outline.md
+│
+├── screenshots/
+│   ├── dashboard_1.png
+│   ├── dashboard_2.png
+│   ├── dashboard_3.png
+│   └── dashboard_4.png
+│
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## Quick Start
+# ⚙️ Installation
+
+Clone the repository:
 
 ```bash
-# 1. Install dependencies
+git clone https://github.com/yourusername/mf-analytics.git
+
+cd mf-analytics
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
-# 2. Run the ETL pipeline (ingest → clean → load)
+---
+
+# ▶️ Running the Project
+
+## 1. Run ETL Pipeline
+
+```bash
 python etl/etl_pipeline.py
+```
 
-# 3. Run EDA notebook
+---
+
+## 2. Run Exploratory Data Analysis
+
+```bash
 jupyter notebook analysis/01_eda_notebook.ipynb
+```
 
-# 4. Compute risk metrics
+---
+
+## 3. Generate Risk Metrics
+
+```bash
 python metrics/risk_metrics.py
+```
 
-# 5. Prepare dashboard data
+---
+
+## 4. Prepare Dashboard Dataset
+
+```bash
 python dashboard/dashboard_data.py
 ```
 
 ---
 
-## Data Pipeline
+## 5. Open Power BI Dashboard
 
+Open:
+
+```text
+dashboard/Bluestock_MF_Dashboard.pbix
 ```
-mfapi.in REST API  ──┐
-AMFI India CSVs    ──┤──▶  ETL Pipeline  ──▶  SQLite / PostgreSQL  ──▶  BI Dashboard
-10 Raw CSV files   ──┘       (pandas)           (Star Schema)           (Power BI / Tableau)
+
+---
+
+# 🗄️ Database Schema
+
+The project follows a **Star Schema** for efficient analytics.
+
+### Dimension Table
+
+| Table    | Description             |
+| -------- | ----------------------- |
+| dim_fund | Fund master information |
+
+### Fact Tables
+
+| Table             | Description           |
+| ----------------- | --------------------- |
+| fact_nav          | Daily NAV history     |
+| fact_aum          | Monthly AUM           |
+| fact_sip          | SIP inflows           |
+| fact_transactions | Investor transactions |
+
+---
+
+# 📊 Dashboard Pages
+
+## 1️⃣ Market Overview
+
+* Industry KPIs
+* Total AUM
+* Monthly SIP Inflows
+* Folios
+* Industry Growth Trend
+* AMC-wise AUM
+
+---
+
+## 2️⃣ Fund Performance
+
+* Return vs Risk Scatter Plot
+* Benchmark Comparison
+* NAV Trend
+* Fund Ranking
+* CAGR Analysis
+
+---
+
+## 3️⃣ Investor Analytics
+
+* State-wise Investment
+* SIP vs Lumpsum Distribution
+* Age Group Analysis
+* Monthly Transactions
+* Investor Demographics
+
+---
+
+## 4️⃣ Portfolio & Market Trends
+
+* Category-wise Inflows
+* Nifty vs SIP Trend
+* Portfolio Holdings
+* Sector Allocation
+* Top Performing Categories
+
+---
+
+# 📈 Risk Metrics
+
+The project calculates multiple financial metrics including:
+
+* Sharpe Ratio
+* Sortino Ratio
+* Alpha
+* Beta
+* Rolling CAGR
+* Value at Risk (95%)
+* Maximum Drawdown
+
+---
+
+# 🔍 Exploratory Data Analysis
+
+The notebook contains more than **15 visualizations**, including:
+
+* NAV Trend Analysis
+* AMC Comparison
+* SIP Growth
+* Category Distribution
+* Rolling Returns
+* Risk Distribution
+* Transaction Trends
+* Investor Demographics
+* Monthly AUM Growth
+* Portfolio Allocation
+
+---
+
+# 💡 Key Business Insights
+
+* 📈 Mid-cap funds generated approximately **3.2% higher alpha** than large-cap funds over 3 years.
+* 👥 Investors below 30 years account for **31% of total SIP participation**.
+* 🌆 Tier-2 cities recorded **2.5× faster growth** than Tier-1 cities.
+* 🌍 Maharashtra, Karnataka, Tamil Nadu, Delhi, and Gujarat contributed the highest investment volume.
+* 🏦 SBI Mutual Fund holds nearly **25% market share** with around **₹12.5 lakh crore AUM**.
+
+---
+
+# 🛠️ Technology Stack
+
+| Category        | Technologies                 |
+| --------------- | ---------------------------- |
+| Programming     | Python 3.11                  |
+| Data Processing | Pandas, NumPy                |
+| API             | mfapi.in                     |
+| Database        | SQLite, PostgreSQL           |
+| SQL             | SQLAlchemy                   |
+| Analysis        | Jupyter Notebook             |
+| Visualization   | Matplotlib, Plotly, Power BI |
+| Dashboard       | Microsoft Power BI           |
+| Version Control | Git & GitHub                 |
+
+---
+
+# 📦 Deliverables
+
+* ✅ Python ETL Pipeline
+* ✅ SQL Database Schema
+* ✅ Exploratory Data Analysis Notebook
+* ✅ Financial Risk Metrics
+* ✅ Power BI Dashboard
+* ✅ Dashboard PDF
+* ✅ Project Documentation
+* ✅ Presentation Outline
+
+---
+
+# 📸 Dashboard Preview
+
+Add screenshots here after completing the dashboard.
+
+```text
+screenshots/dashboard_1.png
+
+screenshots/dashboard_2.png
+
+screenshots/dashboard_3.png
+
+screenshots/dashboard_4.png
 ```
 
-### Star Schema (5 Tables)
-| Table | Description |
-|---|---|
-| `dim_fund` | Fund master — AMC, scheme, category |
-| `fact_nav` | Daily NAV history |
-| `fact_aum` | Monthly AUM by fund house |
-| `fact_sip` | Monthly SIP inflow data |
-| `fact_transactions` | Investor transaction ledger |
+---
+
+# 📚 Data Sources
+
+* **AMFI India** – Mutual Fund Industry Statistics
+* **mfapi.in** – Historical NAV API
+* Simulated investor, transaction, and demographic datasets generated for analytical purposes.
 
 ---
 
-## Risk & Performance Metrics
+# 👨‍💻 Author
 
-| Metric | Description |
-|---|---|
-| **Sharpe Ratio** | Risk-adjusted return vs risk-free rate |
-| **Sortino Ratio** | Downside-deviation adjusted return |
-| **Alpha** | Excess return vs benchmark (Nifty 50) |
-| **Beta** | Market sensitivity |
-| **VaR 95%** | Value at Risk at 95% confidence |
-| **Max Drawdown** | Peak-to-trough decline |
-| **Rolling CAGR** | 1Y / 3Y / 5Y compounded annual growth |
+**Vivek Dutt Sharma**
+
+Aspiring Data Analyst | Python | SQL | Power BI | Excel
+
+
+* LinkedIn: www.linkedin.com/in/vivekdutt-sharma-5317b2338
+* GitHub: https://github.com/vivekduttsharma2005-hub 
 
 ---
 
-## Key Insights
+# ⭐ Support
 
-- **Mid-cap funds outperformed large-cap by 3.2% alpha (3Y)**
-- **31% of investors are under 30** — highest SIP participation
-- **Tier-2 cities growing 2.5x faster** than Tier-1 (+19% YoY)
-- **Top 5 states**: Maharashtra, Karnataka, Tamil Nadu, Delhi, Gujarat
-- **SBI dominates AUM** at ₹12.5L Cr (25%+ market share)
+If you found this project useful, consider giving it a ⭐ on GitHub.
 
----
+Feedback, suggestions, and contributions are always welcome!
 
-## BI Dashboard (4 Pages)
-
-1. **Market Overview** — KPI cards, AUM trend, SIP inflow forecast
-2. **Fund Performance & Risk** — Sharpe vs Sortino scatter, rolling CAGR
-3. **Investor Demographics** — Choropleth map, age distribution, SIP/Lumpsum pie
-4. **Portfolio Holdings** — Sunburst sector concentration, benchmark comparison
-
----
-
-## Deliverables Checklist
-
-- [x] O1 · Python ETL pipeline (`etl/etl_pipeline.py`)
-- [x] O2 · SQL schema (`sql/schema.sql`)
-- [x] O3 · EDA notebook with 15+ charts (`analysis/01_eda_notebook.ipynb`)
-- [x] O4 · Risk metrics notebook + CSVs (`analysis/02_performance_metrics.ipynb`)
-- [x] O5 · Dashboard data prep (`dashboard/dashboard_data.py`)
-- [x] O6 · Demographic insights (in EDA notebook)
-- [x] O7 · Benchmark comparison (in metrics notebook)
-- [x] O8 · Report + slide deck (`docs/`)
-
----
-
-## Tech Stack
-
-| Layer | Tools |
-|---|---|
-| Language | Python 3.11 |
-| Data Ingestion | `requests`, `mfapi.in` REST |
-| Transformation | `pandas`, `numpy` |
-| Database | SQLite (dev) / PostgreSQL (prod) via `SQLAlchemy` |
-| Analysis | `jupyter`, `matplotlib`, `seaborn`, `scipy` |
-| Metrics | `numpy`, `pandas` |
-| Visualization | Power BI / Tableau |
-
----
-
-## Data Sources
-
-- **[mfapi.in](https://mfapi.in)** — Free REST API for NAV history
-- **[AMFI India](https://www.amfiindia.com)** — Official AUM and SIP data
-- Simulated transaction and investor demographic data (realistic distributions)
-
----
-
-*Capstone project for Bluestock Fintech · June 2026*
